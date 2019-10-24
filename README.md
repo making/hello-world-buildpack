@@ -1,3 +1,5 @@
 # Sample: Hello World Buildpack
 
-A no-op buildpack
+```
+pack build hello -p /tmp/foo --buildpack $(pwd) --builder cloudfoundry/cnb:bionic --no-pull
+```
