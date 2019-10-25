@@ -1,0 +1,17 @@
+description = "hello world buildpack example"
+
+[lifecycle]
+  version = "0.4.0"
+
+[[buildpacks]]
+  id = "am.ik.buildpacks.helloworld"
+  uri = "../hello-world-buildpack-v0.0.1.tgz"
+[[order]]
+
+  [[order.group]]
+    id = "am.ik.buildpacks.helloworld"
+
+[stack]
+  id = "io.buildpacks.stacks.bionic"
+  build-image = "cloudfoundry/build:base-cnb"
+  run-image = "cloudfoundry/run:base-cnb"
