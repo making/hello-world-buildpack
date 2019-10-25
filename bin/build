@@ -4,13 +4,24 @@ echo "---> Hello World buildpack"
 
 set -eo pipefail
 
-# https://github.com/buildpack/spec/blob/master/buildpack.md#build
-layers=$1
-platform=$2
-plan=$3
+echo "build command: $0 $*"
+echo "See https://github.com/buildpack/spec/blob/master/buildpack.md#build"
 
-echo "     layers: ${layers}"
-echo "     platform: ${platform}"
-echo "     plan: ${plan}"
+# INPUT ARGUMENTS
+env_dir=$2/env
+layers_dir=$1
+plan_path=$3
+
+buildtime_layer=${layers_dir}/buildtime
+mkdir -p ${buildtime_layer}
+cat <<EOF > ${buildtime_layer}/date.txt
+$(date)
+EOF
+echo -e 'launch = true' > "${buildtime_layer}.toml"
+
+cat <<EOF
+buildtime:
+	$(cat ${buildtime_layer}/date.txt)
+EOF
 
 echo "---> Done"
